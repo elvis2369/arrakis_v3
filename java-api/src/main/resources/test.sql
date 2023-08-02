@@ -1,0 +1,1 @@
+INSERT INTO trades (currency, trade_type, quantity) VALUES (USD, buy, 50);
