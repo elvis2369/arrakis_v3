@@ -5,16 +5,20 @@ function Register() {
   const [credentials, setCredentials] = useState({
     firstName: "",
     email: "",
-    pswd: "",
+    password: "",
+    role:""
   });
-
+  const navigate = useNavigate();
   const takeInput = (e) => {
     setCredentials({
       ...credentials,
       [e.target.name]: e.target.value,
     });
   };
-  function addUser() {}
+  function addUser() {
+    console.log(credentials.email);
+    navigate('/login')
+  }
   return (
     <div className="mainRegister">
       <div class="container d-flex align-items-center justify-content-center  pt-5">
@@ -32,7 +36,6 @@ function Register() {
                   id="userRegister"
                   placeholder="Enter first name"
                   name="firstName"
-                  required
                   value={credentials.firstName}
                   onChange={takeInput}
                 />
@@ -47,7 +50,6 @@ function Register() {
                   id="userEmail"
                   placeholder="Enter email"
                   name="email"
-                  required
                   value={credentials.email}
                   onChange={takeInput}
                 />
@@ -62,10 +64,18 @@ function Register() {
                   id="userPassword"
                   placeholder="Enter password"
                   name="password"
-                  required
                   value={credentials.password}
                   onChange={takeInput}
                 />
+              </div>
+              <div class="mb-4 ">
+                <label for="role" class="form-label">
+                  Role
+                </label>
+                <select value={credentials.role} onChange={takeInput} id="role" name="role" class="form-select">
+                    <option>Admin</option>
+                    <option>User</option>
+                </select>
               </div>
             </div>
             <div class="text-center">

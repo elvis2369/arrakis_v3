@@ -33,25 +33,26 @@ function Login() {
                 <input
                   type="email"
                   class="form-control"
-                  placeholder="Email"
                   id="userEmail"
-                  required
+                  placeholder="Enter email"
+                  name="email"
                   value={credentials.email}
                   onChange={takeInput}
                 />
               </div>
               <div className="mb-4 mt-3">
-                <label htmlFor="pwd" class="form-label">
+                <label htmlFor="password" class="form-label">
                   Password:
                 </label>
                 <input
                   type="password"
-                  id="userPass"
                   class="form-control"
-                  placeholder="Password"
-                  required
+                  id="userPassword"
+                  placeholder="Enter password"
+                  name="password"
                   value={credentials.password}
-                  onChange={takeInput}/>
+                  onChange={takeInput}
+                  ></input>
               </div>
               <div class="text-center">
                 <button type='submit' class="btn btn-dark mb-3 " onClick={submitLogin}>Submit Login</button>
