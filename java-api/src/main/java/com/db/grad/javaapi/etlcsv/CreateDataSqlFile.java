@@ -1,5 +1,7 @@
 package com.db.grad.javaapi.etlcsv;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.text.ParseException;
@@ -40,8 +42,8 @@ public class CreateDataSqlFile {
         //String filePathOfDataSql = new File("src\\main\\resources\\data.sql").getAbsolutePath();
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath_dataSql));
-
-        queryBook(writer, trades);
+        String[] booksArray = createBooksArray(trades);
+        queryBook(writer, booksArray);
 
         for (int i=1;i<trades.size();i++) {
 
@@ -68,11 +70,11 @@ public class CreateDataSqlFile {
                     "'" + trades.get(i).getStatus() + "'"
                     + ");\n";
 
-            String query_book = "INSERT INTO book (id, name) " +
-                    "VALUES (" +
-                    "'" + i + "'"
-                    + ", " +
-                    "'" + trades.get(i).getBook_name() + "'" + ");\n";
+//            String query_book = "INSERT INTO book (id, name) " +
+//                    "VALUES (" +
+//                    "'" + i + "'"
+//                    + ", " +
+//                    "'" + trades.get(i).getBook_name() + "'" + ");\n";
 
 
             String query_counterparty = "INSERT INTO counterparty (id, name) " +
@@ -83,7 +85,7 @@ public class CreateDataSqlFile {
 
             String query_trade = "INSERT INTO trade (book_id, security_id, counterparty_id, currency, status, quantity, unit_price, buy_sell, trade_date, settlement_date) " +
                     "VALUES (" +
-                    "'" + 1 + "'"
+                    "'" + findMatchingBook(booksArray, trades.get(i).getBook_name()) + "'"
                     + ", " +
                     "'" + 1 + "'"
                     + ", " +
@@ -135,16 +137,30 @@ public class CreateDataSqlFile {
         }
     }
 
-    public static void queryBook(Writer writer, List<Trade> trades) throws IOException {
-        String[] arrayOfTradeBooks = new String[trades.size()];
+    public static void queryBook(Writer writer, String[] booksArray) throws IOException {
+
+        int x = 1;
+        for (int i=0;i<booksArray.length-1;i++) {
+
+        String query_book = "INSERT INTO book (id, name) " +
+                "VALUES (" +
+                "'" + x + "'"
+                + ", " +
+                "'" + booksArray[i].toString() + "'" + ");\n";
+        x++;
+        writer.write(query_book);
+    }}
+
+    public static String[] createBooksArray(List<Trade> trades){
+        String[] booksArray = new String[trades.size()];
 
         for (int i=1;i<trades.size();i++) {
             if(trades.get(i).getBook_name() != null){
-            arrayOfTradeBooks[i] = trades.get(i).getBook_name().substring(0, 1).toUpperCase() + trades.get(i).getBook_name().substring(1);
-        } }
+                booksArray[i] = trades.get(i).getBook_name(); //.substring(0, 1).toUpperCase() + trades.get(i).getBook_name().substring(1);
+            } }
 
         // Konvertiere das Array in ein Set, um Duplikate zu entfernen
-        Set<String> uniqueSet = new HashSet<>(Arrays.asList(arrayOfTradeBooks));
+        Set<String> uniqueSet = new HashSet<>(Arrays.asList(booksArray));
 
         // Konvertiere das Set zurück in ein Array
         String[] resultArray = uniqueSet.toArray(new String[0]);
@@ -152,16 +168,27 @@ public class CreateDataSqlFile {
         // Ausgabe des Ergebnisarrays ohne Duplikate
         System.out.println("Ergebnisarray ohne Duplikate: " + Arrays.toString(resultArray));
 
-        int x = resultArray.length-1;
-        for (int i=1;i<resultArray.length;i++) {
+        // Erstelle ein neues Array mit derselben Größe
+        String[] reversedArray = new String[resultArray.length];
 
-        String query_book = "INSERT INTO book (id, name) " +
-                "VALUES (" +
-                "'" + i + "'"
-                + ", " +
-                "'" + resultArray[x].toString() + "'" + ");\n";
-        x--;
-        writer.write(query_book);
-    }}
+        // Kopiere die Elemente in umgekehrter Reihenfolge in das neue Array
+        for (int i = 0; i < resultArray.length; i++) {
+            reversedArray[resultArray.length - 1 - i] = resultArray[i];
+        }
 
+
+
+        //for(String str : reversedArray){
+            //System.out.println(str);
+        //}
+
+        return reversedArray;
+    }
+    public static int findMatchingBook(String[] booksArray, String bookName){
+        int indexOfBook = ArrayUtils.indexOf(booksArray, bookName);
+        indexOfBook = indexOfBook+1;
+        System.out.println(indexOfBook);
+        //System.out.println(booksArray[2]);
+        return indexOfBook;
+    }
 }

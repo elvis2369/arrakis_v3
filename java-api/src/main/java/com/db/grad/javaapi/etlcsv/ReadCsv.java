@@ -82,7 +82,7 @@ public class ReadCsv
         String bond_maturity_date = metadata[13];
         String status = metadata[14];
         String type = metadata[15];
-        String book_name = metadata[16];
+        String book_name = metadata[16].substring(0, 1).toUpperCase() + metadata[16].substring(1);
         String bond_holder = metadata[17];
 
         //int price = Integer.parseInt(metadata[1]);
