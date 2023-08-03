@@ -18,7 +18,7 @@ public class JavaApiApplication {
 		String filePath_dataCsv = new File("src\\main\\resources\\db-bonds-data.csv").getAbsolutePath();
 
 		try {
-			CreateDataSqlFile.main(filePath_dataCsv, filePath_dataSql);
+//			CreateDataSqlFile.main(filePath_dataCsv, filePath_dataSql);
 			checkFile(filePath_dataSql);
 		}
 		catch(Exception e) {
