@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [credentials, setCredentials] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   const navigate = useNavigate();
@@ -16,8 +16,22 @@ function Login() {
     });
   };
 
-  function submitLogin(){
-    navigate('/register')
+  const submitLogin = (e) =>{
+    e.preventDefault()
+    console.log(credentials)
+    axios.post("http://localhost:8080/login",null,{params:{
+      ...credentials
+    }}).then(async (response)=>{
+          if(response.status == 200){
+            console.log('test')
+            // const user = await axios.get("http://localhost:5000/api/users/"+credentials.email)
+            // console.log(user.data[0])
+            // localStorage.setItem("userEmail",user.data[0].Email)
+            // localStorage.setItem("userType",user.data[0].Tip_user)
+            // localStorage.setItem("userID",user.data[0].Utilizator_ID)
+            navigate('/register')
+          }
+        }).catch(err => console.warn(err));
   }
   return (
     <div className="mainLogin">
@@ -27,16 +41,16 @@ function Login() {
             <h1 class="text-center my-5"> Login</h1>
             <form>
               <div class="mb-3 mt-3">
-                <label htmlfor="email" class="form-label">
-                  Email:
+                <label htmlfor="username" class="form-label">
+                  Username:
                 </label>
                 <input
-                  type="email"
+                  type="username"
                   class="form-control"
-                  id="userEmail"
-                  placeholder="Enter email"
-                  name="email"
-                  value={credentials.email}
+                  id="username"
+                  placeholder="Enter username"
+                  name="username"
+                  value={credentials.username}
                   onChange={takeInput}
                 />
               </div>
