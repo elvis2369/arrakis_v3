@@ -10,69 +10,68 @@ import java.util.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
-import static com.db.grad.javaapi.etlcsv.ReadCsv.readTradesFromCSV;
-
 public class CreateDataSqlFile {
 
-
-    public static void main(String filePath_dataCsv, String filePath_dataSql) throws IOException {
-
-        System.out.println("----------Creating data.sql----------");
-        System.out.println("Path of CSV file -> "+filePath_dataCsv);
-
-        List<Trade> trades = readTradesFromCSV(filePath_dataCsv);
-
-        writeQueriesIntoFile(trades, filePath_dataSql);
-
-        System.out.println("----------data.sql created----------");
-    }
-    public static void writeQueriesIntoFile(List<Trade> trades, String filePath_dataSql)
+    public static void writeQueriesIntoFile(List<Trade> trades, List<Security> securities, String filePath_dataSql)
             throws IOException {
 
-
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath_dataSql));
+
         String[] booksArray = createBooksArray(trades);
-        createQueryBook(writer, booksArray);
+        String[] counterpartiesArray = createCounterpartyArray(trades);
+        List<Security> securitiesList = removeDuplicatesOfSecuritiesList(securities);
 
-        for (int i=1;i<trades.size();i++) {
+        createQueriesForBooks(writer, booksArray);
+        createQueriesForCounterparties(writer, counterpartiesArray);
+        createQueriesForSecurities(writer, securitiesList);
+        createQueriesForTrades(writer, trades, booksArray, counterpartiesArray, securitiesList);
 
-            String query_security = "INSERT INTO security (id, isin, cusip, issuer_name, maturity_date, coupon, type, face_value, currency, status) " +
+        writer.flush();
+        writer.close();
+
+        System.out.println("Path of data.sql file -> " + filePath_dataSql);
+    }
+
+    private static void createQueriesForSecurities(BufferedWriter writer, List<Security> securitiesList) throws IOException {
+
+        for (Security s : securitiesList) {
+            String query_security = "INSERT INTO security (isin, cusip, issuer_name, maturity_date, coupon, type, face_value, currency, status) " +
                     "VALUES (" +
-                    "'" + i + "'"
+                    "'" + s.getIsin() + "'"
                     + ", " +
-                    "'" + trades.get(i).getIsin() + "'"
+                    "'" + s.getCusip() + "'"
                     + ", " +
-                    "'" + trades.get(i).getCusip() + "'"
+                    "'" + s.getIssuer_name() + "'"
                     + ", " +
-                    "'" + trades.get(i).getIssuer_name() + "'"
+                    "'" + convertDate(s.getBond_maturity_date()) + "'"
                     + ", " +
-                    "'" + convertDate(trades.get(i).getBond_maturity_date()) + "'"
+                    "'" + s.getCoupon_percent() + "'"
                     + ", " +
-                    "'" + trades.get(i).getCoupon_percent() + "'"
+                    "'" + s.getType() + "'"
                     + ", " +
-                    "'" + trades.get(i).getType() + "'"
+                    "'" + s.getFace_value() + "'"
                     + ", " +
-                    "'" + trades.get(i).getFace_value() + "'"
+                    "'" + s.getBond_currency() + "'"
                     + ", " +
-                    "'" + trades.get(i).getTrade_currency() + "'"
-                    + ", " +
-                    "'" + trades.get(i).getStatus() + "'"
+                    "'" + s.getStatus() + "'"
                     + ");\n";
+            writer.write(query_security);
+        }
 
 
-            String query_counterparty = "INSERT INTO counterparty (id, name) " +
-                    "VALUES (" +
-                    "'" + i +
-                    "'" + ", " +
-                    "'" + trades.get(i).getIssuer_name() + "'" + ");\n";
+    }
+
+    private static void createQueriesForTrades(BufferedWriter writer, List<Trade> trades, String[] booksArray, String[] counterpartiesArray, List<Security> securitiesList) throws IOException {
+
+        for (int i = 1; i < trades.size(); i++) {
 
             String query_trade = "INSERT INTO trade (book_id, security_id, counterparty_id, currency, status, quantity, unit_price, buy_sell, trade_date, settlement_date) " +
                     "VALUES (" +
-                    "'" + findMatchingBook(booksArray, trades.get(i).getBook_name()) + "'"
+                    "'" + findMatch(booksArray, trades.get(i).getBook_name()) + "'"
                     + ", " +
-                    "'" + 1 + "'"
+                    "'" + findMatchList(securitiesList, trades.get(i)) + "'"
                     + ", " +
-                    "'" + 1 + "'"
+                    "'" + findMatch(counterpartiesArray, trades.get(i).getIssuer_name()) + "'"
                     + ", " +
                     "'" + trades.get(i).getTrade_currency() + "'"
                     + ", " +
@@ -87,21 +86,15 @@ public class CreateDataSqlFile {
                     "'" + convertDate(trades.get(i).getTrade_date()) + "'"
                     + ", " +
                     "'" + convertDate(trades.get(i).getTrade_settlement_date()) + "'"
-                    + ");";
+                    + ");\n";
 
-            writer.write(query_security);
-            //writer.write(query_book);
-            writer.write(query_counterparty);
             writer.write(query_trade);
-
         }
-        writer.close();
-        System.out.println("Path of data.sql file -> "+filePath_dataSql);
 
 
     }
 
-    public static String convertDate(String inputDate){
+    public static String convertDate(String inputDate) {
 
         String outputFormat = "yyyy-MM-dd";
 
@@ -120,27 +113,70 @@ public class CreateDataSqlFile {
         }
     }
 
-    public static void createQueryBook(Writer writer, String[] booksArray) throws IOException {
+    public static List<Security> removeDuplicatesOfSecuritiesList(List<Security> securities) {
+        List<Security> listWithoutDuplicates = new ArrayList<>(
+                new LinkedHashSet<>(securities));
+
+        return listWithoutDuplicates;
+    }
+
+    public static String[] createCounterpartyArray(List<Trade> trades) {
+        String[] counterpartiesArray = new String[trades.size()];
+
+        for (int i = 0; i < trades.size(); i++) {
+            if (trades.get(i).getIssuer_name() != null) {
+                counterpartiesArray[i] = trades.get(i).getIssuer_name();
+            }
+        }
+
+        // Konvertiere das Array in ein Set, um Duplikate zu entfernen
+        Set<String> uniqueSet = new HashSet<>(Arrays.asList(counterpartiesArray));
+        uniqueSet.remove(null);
+
+        // Konvertiere das Set zurück in ein Array
+        String[] resultArray = uniqueSet.toArray(new String[0]);
+
+        return resultArray;
+    }
+
+    public static void createQueriesForCounterparties(Writer writer, String[] counterpartiesArray) throws IOException {
 
         int x = 1;
-        for (int i=0;i<booksArray.length;i++) {
+        for (int i = 0; i < counterpartiesArray.length; i++) {
 
-        String query_book = "INSERT INTO book (id, name) " +
-                "VALUES (" +
-                "'" + x + "'"
-                + ", " +
-                "'" + booksArray[i].toString() + "'" + ");\n";
-        x++;
-        writer.write(query_book);
-    }}
+            String query_counterparty = "INSERT INTO counterparty (id, name) " +
+                    "VALUES (" +
+                    "'" + x + "'"
+                    + ", " +
+                    "'" + counterpartiesArray[i].toString() + "'" + ");\n";
+            x++;
+            writer.write(query_counterparty);
+        }
+    }
 
-    public static String[] createBooksArray(List<Trade> trades){
+    public static void createQueriesForBooks(Writer writer, String[] booksArray) throws IOException {
+
+        int x = 1;
+        for (int i = 0; i < booksArray.length; i++) {
+
+            String query_book = "INSERT INTO book (id, name) " +
+                    "VALUES (" +
+                    "'" + x + "'"
+                    + ", " +
+                    "'" + booksArray[i].toString() + "'" + ");\n";
+            x++;
+            writer.write(query_book);
+        }
+    }
+
+    public static String[] createBooksArray(List<Trade> trades) {
         String[] booksArray = new String[trades.size()];
 
-        for (int i=0;i<trades.size();i++) {
-            if(trades.get(i).getBook_name() != null && !trades.get(i).getBook_name().equals("Book_name")){
+        for (int i = 0; i < trades.size(); i++) {
+            if (trades.get(i).getBook_name() != null && !trades.get(i).getBook_name().equals("Book_name")) {
                 booksArray[i] = trades.get(i).getBook_name();
-            } }
+            }
+        }
 
         // Konvertiere das Array in ein Set, um Duplikate zu entfernen
         Set<String> uniqueSet = new HashSet<>(Arrays.asList(booksArray));
@@ -162,9 +198,23 @@ public class CreateDataSqlFile {
 
         return reversedArray;
     }
-    public static int findMatchingBook(String[] booksArray, String bookName){
-        int indexOfBook = ArrayUtils.indexOf(booksArray, bookName)+1;
 
-        return indexOfBook;
+    public static int findMatch(String[] array, String identifier) {
+        int indexOfArray = ArrayUtils.indexOf(array, identifier) + 1;
+
+        return indexOfArray;
     }
+
+    public static int findMatchList(List<Security> list, Trade identifier) {
+
+        int index = 0;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getIsin().equals(identifier.getIsin())) {
+                index = i + 1;
+            }
+        }
+
+        return index;
+    }
+
 }
