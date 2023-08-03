@@ -29,7 +29,7 @@ function Login() {
             // localStorage.setItem("userEmail",user.data[0].Email)
             // localStorage.setItem("userType",user.data[0].Tip_user)
             // localStorage.setItem("userID",user.data[0].Utilizator_ID)
-            navigate('/register')
+            navigate('/home')
           }
         }).catch(err => console.warn(err));
   }
@@ -41,7 +41,7 @@ function Login() {
             <h1 class="text-center my-5"> Login</h1>
             <form>
               <div class="mb-3 mt-3">
-                <label htmlfor="username" class="form-label">
+                <label htmlFor="username" class="form-label">
                   Username:
                 </label>
                 <input
@@ -72,10 +72,6 @@ function Login() {
                 <button type='submit' class="btn btn-dark mb-3 " onClick={submitLogin}>Submit Login</button>
               </div>
             </form>
-            <span class="me-3">
-              <i>Don't have an account?</i>
-            </span>
-            <a href="/register">Press here to register.</a>
           </div>
         </div>
       </div>
