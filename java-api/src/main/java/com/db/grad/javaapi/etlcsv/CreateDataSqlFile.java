@@ -120,8 +120,6 @@ public class CreateDataSqlFile {
         Set<Security> uniqueSet = new HashSet<>(securities);
         Security[] resultArray = uniqueSet.toArray(new Security[0]);
 
-        System.out.println("TEST " + resultArray.length);
-
         return listWithoutDuplicates;
     }
 
