@@ -2,8 +2,6 @@ package com.db.grad.javaapi.etlcsv;
 
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -12,21 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadCsv
-{
-    public static void main(String... args) {
-
-        String filePath = new File("src\\main\\resources\\db-bonds-data.csv").getAbsolutePath();
-
-        System.out.println("FilePath of CSV -> "+filePath);
-
-        List<Trade> trades = readTradesFromCSV(filePath);
-
-        // let's print all the person read from CSV file
-        for (Trade t : trades) {
-            System.out.println(t);
-        }
-    }
+public class ReadCsv {
 
     public static List<Trade> readTradesFromCSV(String fileName) {
         List<Trade> trades = new ArrayList<>();
@@ -50,7 +34,7 @@ public class ReadCsv
 
                 Trade trade = createTrade(attributes);
 
-                // adding book into ArrayList
+                // adding trade into ArrayList
                 trades.add(trade);
 
                 // read next line before looping
@@ -91,6 +75,20 @@ public class ReadCsv
         // create and return trade of this metadata
         return new Trade(trade_type, trade_currency, quantity, trade_settlement_date, trade_status, trade_date, unit_price, coupon_percent, bond_currency, cusip, face_value, isin, issuer_name, bond_maturity_date, status, type, book_name, bond_holder
         );
+    }
+
+    public static List<Security>  createSecuritiesFromTrades(List<Trade> trades){
+        List<Security> securities = new ArrayList<>();
+
+        for(int i=1;i<trades.size();i++) {
+            Security security = new Security(1, trades.get(i).getIsin(), trades.get(i).getCusip(), trades.get(i).getIssuer_name(),
+                    trades.get(i).getBond_maturity_date(), trades.get(i).getCoupon_percent(), trades.get(i).getType(), trades.get(i).getFace_value(),
+                    trades.get(i).getTrade_currency(), trades.get(i).getStatus());
+
+            securities.add(security);
+        }
+
+        return securities;
     }
 
 }
