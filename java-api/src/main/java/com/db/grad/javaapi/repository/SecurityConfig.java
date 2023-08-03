@@ -58,6 +58,7 @@ public class SecurityConfig {
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests()
                 .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/api/register").permitAll()
                 .and().authorizeHttpRequests()
                 .anyRequest().authenticated()
                 .and()

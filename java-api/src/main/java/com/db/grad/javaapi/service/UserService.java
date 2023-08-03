@@ -1,5 +1,6 @@
 package com.db.grad.javaapi.service;
 
+import com.db.grad.javaapi.dto.RegisterDTO;
 import com.db.grad.javaapi.model.MyUserDetails;
 import com.db.grad.javaapi.model.User;
 import com.db.grad.javaapi.repository.UserRepository;
@@ -22,5 +23,9 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
         return new MyUserDetails(user);
+    }
+
+    public void saveUser(RegisterDTO registerDTO) {
+        this.userRepository.save(new User(registerDTO));
     }
 }

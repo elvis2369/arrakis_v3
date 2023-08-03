@@ -1,6 +1,8 @@
 package com.db.grad.javaapi.model;
 
+import com.db.grad.javaapi.dto.RegisterDTO;
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 
@@ -29,6 +31,14 @@ public class User {
         this.password = password;
         this.role = role;
         this.email = email;
+    }
+
+    public User(RegisterDTO registerDTO) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        this.email=registerDTO.getEmail();
+        this.password = bCryptPasswordEncoder.encode(registerDTO.getPassword());
+        this.role = registerDTO.getRole();
+        this.username = registerDTO.getUsername();
     }
 
     public boolean hasRole(String roleName) {
