@@ -1,6 +1,8 @@
 package com.db.grad.javaapi.repository;
 
+import com.db.grad.javaapi.model.CustomAuthenticationFailureHandler;
 import com.db.grad.javaapi.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -24,6 +26,8 @@ import java.util.Arrays;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
+    @Autowired
+    private CustomAuthenticationFailureHandler authenticationFailureHandler;
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurerAdapter() {
@@ -62,7 +66,7 @@ public class SecurityConfig {
                 .and().authorizeHttpRequests()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().permitAll().defaultSuccessUrl("/home.html")
+                .formLogin().permitAll().failureHandler(authenticationFailureHandler)
                 .and()
                 .exceptionHandling().accessDeniedPage("/403");
         return http.build();
