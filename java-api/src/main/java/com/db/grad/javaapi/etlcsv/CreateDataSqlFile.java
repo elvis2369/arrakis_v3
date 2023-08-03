@@ -123,7 +123,7 @@ public class CreateDataSqlFile {
     public static String[] createCounterpartyArray(List<Trade> trades) {
         String[] counterpartiesArray = new String[trades.size()];
 
-        for (int i = 0; i < trades.size(); i++) {
+        for (int i = 1; i < trades.size(); i++) {
             if (trades.get(i).getIssuer_name() != null) {
                 counterpartiesArray[i] = trades.get(i).getIssuer_name();
             }
