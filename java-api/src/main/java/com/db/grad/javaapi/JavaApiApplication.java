@@ -24,7 +24,7 @@ public class JavaApiApplication {
         SpringApplication.run(JavaApiApplication.class, args);
     }
 
-    //@PostConstruct
+    @PostConstruct
     public static void initDatabase() {
         String filePath_dataSql = new File("src\\main\\resources\\data.sql").getAbsolutePath();
         String filePath_dataCsv = new File("src\\main\\resources\\db-bonds-data.csv").getAbsolutePath();

@@ -21,6 +21,7 @@ public class CreateDataSqlFile {
         String[] counterpartiesArray = createCounterpartyArray(trades);
         List<Security> securitiesList = removeDuplicatesOfSecuritiesList(securities);
 
+        createQueriesForUsers(writer);
         createQueriesForBooks(writer, booksArray);
         createQueriesForCounterparties(writer, counterpartiesArray);
         createQueriesForSecurities(writer, securitiesList);
@@ -215,6 +216,14 @@ public class CreateDataSqlFile {
         }
 
         return index;
+    }
+
+    public static void createQueriesForUsers(Writer writer) throws IOException {
+
+        String query_user = "INSERT INTO users (id, email, password, role, username) VALUES (1, 'aa', '$2a$12$ueybLK1Wxn1uu2W8PYhHBe/Hj7qEX.3IwnwYRXWSYZGHkiGVdYQnm', 'admin', 'admin');\n";
+
+        writer.write(query_user);
+
     }
 
 }

@@ -1,4 +1,4 @@
-INSERT INTO USERS (id, email, password, role, username) VALUES (1, 'aa',  '$2a$12$ueybLK1Wxn1uu2W8PYhHBe/Hj7qEX.3IwnwYRXWSYZGHkiGVdYQnm','admin','admin');
+INSERT INTO users (id, email, password, role, username) VALUES (1, 'aa', '$2a$12$ueybLK1Wxn1uu2W8PYhHBe/Hj7qEX.3IwnwYRXWSYZGHkiGVdYQnm', 'admin', 'admin');
 INSERT INTO book (id, name) VALUES ('1', 'Trading_book_1');
 INSERT INTO book (id, name) VALUES ('2', 'Trading_book_2');
 INSERT INTO book (id, name) VALUES ('3', 'Trading_book_3');
