@@ -60,5 +60,4 @@ INSERT INTO counterparty (id, name) VALUES ('27', 'First Norway Alpha Kl.IV');
 INSERT INTO trade (book_id, security_id, counterparty_id, currency, status, quantity, unit_price, buy_sell, trade_date, settlement_date) VALUES ('4', '1', '1', 'USD', 'active', '300', '98.76', 'buy', '2013-02-04', '2021-09-27');INSERT INTO security (id, isin, cusip, issuer_name, maturity_date, coupon, type, face_value, currency, status) VALUES ('28', 'IE00B29LNP31', '87973RAA8', 'First Norway Alpha Kl.IV', '2030-12-22', '1.123', 'SOVN', '340', 'USD', 'active');
 INSERT INTO counterparty (id, name) VALUES ('28', 'First Norway Alpha Kl.IV');
 INSERT INTO trade (book_id, security_id, counterparty_id, currency, status, quantity, unit_price, buy_sell, trade_date, settlement_date) VALUES ('4', '1', '1', 'USD', 'active', '300', '98.76', 'sell', '2015-08-23', '2021-08-23');
-INSERT INTO USERS (id, email, password, role, username) VALUES(1, 'aa',  '$2a$12$ueybLK1Wxn1uu2W8PYhHBe/Hj7qEX.3IwnwYRXWSYZGHkiGVdYQnm','admin','admin');
 
