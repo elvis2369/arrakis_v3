@@ -13,18 +13,17 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue
-    @Column(name = "id_user")
-    int id_user;
-    @Column(name = "password")
-    String password;
-    @Column(name = "role")
-    String role;
+    @Column(name = "id", nullable = false)
+    private long id;
+    @Column(name = "username", nullable = false)
+    private String username;
+    @Column(name = "email", nullable = false)
+    private String email;
+    @Column(name = "role", nullable = false)
+    private String role;
 
-    @Column(name = "email", unique = true)
-    String email;
-
-    @Column(name = "username", unique = true)
-    String username;
+    @Column(name = "password" , nullable = false)
+    private String password;
 
     public User(String password, String role, String email) {
         this.password = password;
