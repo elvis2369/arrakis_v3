@@ -19,7 +19,7 @@ public class CreateDataSqlFile {
 
         String[] booksArray = createBooksArray(trades);
         String[] counterpartiesArray = createCounterpartyArray(trades);
-        List<Security> securitiesList = createSecuritiesList(securities);
+        List<Security> securitiesList = removeDuplicatesOfSecuritiesList(securities);
 
         createQueriesForBooks(writer, booksArray);
         createQueriesForCounterparties(writer, counterpartiesArray);
@@ -113,12 +113,9 @@ public class CreateDataSqlFile {
         }
     }
 
-    public static List<Security> createSecuritiesList(List<Security> securities) {
+    public static List<Security> removeDuplicatesOfSecuritiesList(List<Security> securities) {
         List<Security> listWithoutDuplicates = new ArrayList<>(
                 new LinkedHashSet<>(securities));
-
-        Set<Security> uniqueSet = new HashSet<>(securities);
-        Security[] resultArray = uniqueSet.toArray(new Security[0]);
 
         return listWithoutDuplicates;
     }
