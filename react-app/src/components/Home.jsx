@@ -1,6 +1,7 @@
 import React from "react";
-
+import { useEffect } from "react";
 function Home(){
+
     return(
         <div class='table-responsive'>
             <table class='table'>
