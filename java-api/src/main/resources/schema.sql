@@ -15,6 +15,7 @@ CREATE TABLE users (
     role VARCHAR(250) NOT NULL
 );
 
+
 -- Create 'security' table
 CREATE TABLE security (
     id INT AUTO_INCREMENT PRIMARY KEY,
