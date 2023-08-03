@@ -12,7 +12,7 @@ public class UsersController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/register")
+    @PutMapping("/register")
     void registerUser(@RequestBody RegisterDTO registerDTO) {
         this.userService.saveUser(registerDTO);
     }
