@@ -1,5 +1,7 @@
 package com.db.grad.javaapi.etlcsv;
 
+import java.util.Objects;
+
 public class Security {
 
     private int id;
@@ -121,5 +123,27 @@ public class Security {
                 ", bond_currency='" + bond_currency + '\'' +
                 ", status='" + status + '\'' +
                 '}';
+    }
+
+    // Implementiere equals() und hashCode()
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Security)) return false;
+        Security security = (Security) o;
+        return Objects.equals(isin, security.isin) &&
+                Objects.equals(cusip, security.cusip) &&
+                Objects.equals(issuer_name, security.issuer_name) &&
+                Objects.equals(bond_maturity_date, security.bond_maturity_date) &&
+                Objects.equals(coupon_percent, security.coupon_percent) &&
+                Objects.equals(type, security.type) &&
+                Objects.equals(face_value, security.face_value) &&
+                Objects.equals(bond_currency, security.bond_currency) &&
+                Objects.equals(status, security.status);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isin, cusip);
     }
 }

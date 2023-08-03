@@ -12,11 +12,11 @@ import java.io.FileWriter;
 
 public class CreateDataSqlFile {
 
-
-    public static void writeQueriesIntoFile(List<Trade> trades, List<Security> securities,String filePath_dataSql)
+    public static void writeQueriesIntoFile(List<Trade> trades, List<Security> securities, String filePath_dataSql)
             throws IOException {
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath_dataSql));
+
         String[] booksArray = createBooksArray(trades);
         String[] counterpartiesArray = createCounterpartyArray(trades);
         List<Security> securitiesList = createSecuritiesList(securities);
@@ -24,44 +24,7 @@ public class CreateDataSqlFile {
         createQueriesForBooks(writer, booksArray);
         createQueriesForCounterparties(writer, counterpartiesArray);
         createQueriesForSecurities(writer, securitiesList);
-
-        for (int i = 1; i < trades.size(); i++) {
-
-//            String query_counterparty = "INSERT INTO counterparty (id, name) " +
-//                    "VALUES (" +
-//                    "'" + i +
-//                    "'" + ", " +
-//                    "'" + trades.get(i).getIssuer_name() + "'" + ");\n";
-
-            String query_trade = "INSERT INTO trade (book_id, security_id, counterparty_id, currency, status, quantity, unit_price, buy_sell, trade_date, settlement_date) " +
-                    "VALUES (" +
-                    "'" + findMatchingBook(booksArray, trades.get(i).getBook_name()) + "'"
-                    + ", " +
-                    "'" + 1 + "'"
-                    + ", " +
-                    "'" + 1 + "'"
-                    + ", " +
-                    "'" + trades.get(i).getTrade_currency() + "'"
-                    + ", " +
-                    "'" + trades.get(i).getStatus() + "'"
-                    + ", " +
-                    "'" + trades.get(i).getQuantity() + "'"
-                    + ", " +
-                    "'" + trades.get(i).getUnit_price() + "'"
-                    + ", " +
-                    "'" + trades.get(i).getTrade_type() + "'"
-                    + ", " +
-                    "'" + convertDate(trades.get(i).getTrade_date()) + "'"
-                    + ", " +
-                    "'" + convertDate(trades.get(i).getTrade_settlement_date()) + "'"
-                    + ");\n";
-
-            //writer.write(query_security);
-            //writer.write(query_book);
-            //writer.write(query_counterparty);
-            writer.write(query_trade);
-
-        }
+        createQueriesForTrades(writer, trades, booksArray, counterpartiesArray, securitiesList);
 
         writer.flush();
         writer.close();
@@ -71,7 +34,7 @@ public class CreateDataSqlFile {
 
     private static void createQueriesForSecurities(BufferedWriter writer, List<Security> securitiesList) throws IOException {
 
-        for (Security s: securitiesList){
+        for (Security s : securitiesList) {
             String query_security = "INSERT INTO security (isin, cusip, issuer_name, maturity_date, coupon, type, face_value, currency, status) " +
                     "VALUES (" +
                     "'" + s.getIsin() + "'"
@@ -93,6 +56,39 @@ public class CreateDataSqlFile {
                     "'" + s.getStatus() + "'"
                     + ");\n";
             writer.write(query_security);
+        }
+
+
+    }
+
+    private static void createQueriesForTrades(BufferedWriter writer, List<Trade> trades, String[] booksArray, String[] counterpartiesArray, List<Security> securitiesList) throws IOException {
+
+        for (int i = 1; i < trades.size(); i++) {
+
+            String query_trade = "INSERT INTO trade (book_id, security_id, counterparty_id, currency, status, quantity, unit_price, buy_sell, trade_date, settlement_date) " +
+                    "VALUES (" +
+                    "'" + findMatch(booksArray, trades.get(i).getBook_name()) + "'"
+                    + ", " +
+                    "'" + findMatchList(securitiesList, trades.get(i)) + "'"
+                    + ", " +
+                    "'" + findMatch(counterpartiesArray, trades.get(i).getIssuer_name()) + "'"
+                    + ", " +
+                    "'" + trades.get(i).getTrade_currency() + "'"
+                    + ", " +
+                    "'" + trades.get(i).getStatus() + "'"
+                    + ", " +
+                    "'" + trades.get(i).getQuantity() + "'"
+                    + ", " +
+                    "'" + trades.get(i).getUnit_price() + "'"
+                    + ", " +
+                    "'" + trades.get(i).getTrade_type() + "'"
+                    + ", " +
+                    "'" + convertDate(trades.get(i).getTrade_date()) + "'"
+                    + ", " +
+                    "'" + convertDate(trades.get(i).getTrade_settlement_date()) + "'"
+                    + ");\n";
+
+            writer.write(query_trade);
         }
 
 
@@ -121,8 +117,11 @@ public class CreateDataSqlFile {
         List<Security> listWithoutDuplicates = new ArrayList<>(
                 new LinkedHashSet<>(securities));
 
-        //System.out.println("TEST with duplicates"+securities);
-        //System.out.println("TEST without duplicates"+listWithoutDuplicates);
+        Set<Security> uniqueSet = new HashSet<>(securities);
+        Security[] resultArray = uniqueSet.toArray(new Security[0]);
+
+        System.out.println("TEST " + resultArray.length);
+
         return listWithoutDuplicates;
     }
 
@@ -205,9 +204,22 @@ public class CreateDataSqlFile {
         return reversedArray;
     }
 
-    public static int findMatchingBook(String[] booksArray, String bookName) {
-        int indexOfBook = ArrayUtils.indexOf(booksArray, bookName) + 1;
+    public static int findMatch(String[] array, String identifier) {
+        int indexOfArray = ArrayUtils.indexOf(array, identifier) + 1;
 
-        return indexOfBook;
+        return indexOfArray;
     }
+
+    public static int findMatchList(List<Security> list, Trade identifier) {
+
+        int index = 0;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getIsin().equals(identifier.getIsin())) {
+                index = i + 1;
+            }
+        }
+
+        return index;
+    }
+
 }
