@@ -25,6 +25,7 @@ public class CreateDataSqlFile {
         createQueriesForCounterparties(writer, counterpartiesArray);
         createQueriesForSecurities(writer, securitiesList);
         createQueriesForTrades(writer, trades, booksArray, counterpartiesArray, securitiesList);
+        createQueriesForUsers(writer);
 
         writer.flush();
         writer.close();
@@ -123,7 +124,7 @@ public class CreateDataSqlFile {
     public static String[] createCounterpartyArray(List<Trade> trades) {
         String[] counterpartiesArray = new String[trades.size()];
 
-        for (int i = 0; i < trades.size(); i++) {
+        for (int i = 1; i < trades.size(); i++) {
             if (trades.get(i).getIssuer_name() != null) {
                 counterpartiesArray[i] = trades.get(i).getIssuer_name();
             }
@@ -215,6 +216,16 @@ public class CreateDataSqlFile {
         }
 
         return index;
+    }
+
+    public static void createQueriesForUsers(Writer writer) throws IOException {
+
+        String query_user = "INSERT INTO users (id, email, password, role, username) VALUES (1, 'aa', '$2a$12$ueybLK1Wxn1uu2W8PYhHBe/Hj7qEX.3IwnwYRXWSYZGHkiGVdYQnm', 'admin', 'admin');\n";
+
+        String bookid_userid = "INSERT INTO book_user (book_id, user_id) VALUES (2, 1);\n";
+
+        writer.write(query_user);
+        writer.write(bookid_userid);
     }
 
 }
