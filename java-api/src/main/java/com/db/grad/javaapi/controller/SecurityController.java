@@ -3,10 +3,7 @@ package com.db.grad.javaapi.controller;
 import com.db.grad.javaapi.model.Security;
 import com.db.grad.javaapi.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -23,8 +20,8 @@ public class SecurityController {
         return securities;
     }
 
-    @GetMapping("/bondSecurity")
-    public Security getSecurityById(@RequestParam(name = "id") int id) {
+    @GetMapping("/bondSecurity/{id}")
+    public Security getSecurityById(@PathVariable(name = "id") int id) {
         return this.securityService.getSecurityById(id);
     }
 }
