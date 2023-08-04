@@ -24,7 +24,7 @@ public class Security {
     @Column(name = "issuer_name")
     private String issuer_name;
     @Column(name = "maturity_date")
-    private Date maturity_date;
+    private String maturity_date;
     @Column(name = "coupon")
     private float coupon;
     @Column(name = "type")
