@@ -4,7 +4,9 @@ import com.db.grad.javaapi.model.Security;
 import com.db.grad.javaapi.service.SecurityService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface ISecurityRepo extends JpaRepository<Security,Long> {
@@ -15,7 +17,16 @@ public interface ISecurityRepo extends JpaRepository<Security,Long> {
             "ON trade.security_id = security.id\n" +
             "WHERE trade.book_id IN (SELECT book_id\n" +
             "                   FROM book_user\n" +
-            "                  WHERE user_id=:id);")
-    List<Security> getMyBonds(long id);
+            "                  WHERE user_id=1);")
+      //          "                  WHERE user_id=:id);")
+    ArrayList<Security> getMyBonds(long id);
+
+    @Query(nativeQuery = true, value = "select * from security where id=:id")
+    public Security getSecurityById(long id);
 
 }
+
+
+
+
+

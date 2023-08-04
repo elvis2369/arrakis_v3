@@ -35,10 +35,10 @@ public class BookUserController {
     }
 
     @GetMapping("/myBonds")
-    public List<Security> getAllBondsFromMyBooks(Principal principal) {
+    public ArrayList<Security> getAllBondsFromMyBooks(Principal principal) {
         User user = (User) this.userService.searchByUsername(principal.getName());
 
-        List<Security> bondData = this.securityService.getMyBonds(user.getId());
+        ArrayList<Security> bondData = this.securityService.getMyBonds(user.getId());
 
         return bondData;
     }
