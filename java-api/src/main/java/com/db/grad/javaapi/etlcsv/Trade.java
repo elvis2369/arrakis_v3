@@ -1,6 +1,6 @@
 package com.db.grad.javaapi.etlcsv;
 
-class Trade {
+public class Trade {
 
     private String trade_type;
     private String trade_currency;
