@@ -21,11 +21,11 @@ public class CreateDataSqlFile {
         String[] counterpartiesArray = createCounterpartyArray(trades);
         List<Security> securitiesList = removeDuplicatesOfSecuritiesList(securities);
 
-        createQueriesForUsers(writer);
         createQueriesForBooks(writer, booksArray);
         createQueriesForCounterparties(writer, counterpartiesArray);
         createQueriesForSecurities(writer, securitiesList);
         createQueriesForTrades(writer, trades, booksArray, counterpartiesArray, securitiesList);
+        createQueriesForUsers(writer);
 
         writer.flush();
         writer.close();
@@ -222,8 +222,10 @@ public class CreateDataSqlFile {
 
         String query_user = "INSERT INTO users (id, email, password, role, username) VALUES (1, 'aa', '$2a$12$ueybLK1Wxn1uu2W8PYhHBe/Hj7qEX.3IwnwYRXWSYZGHkiGVdYQnm', 'admin', 'admin');\n";
 
-        writer.write(query_user);
+        String bookid_userid = "INSERT INTO book_user (book_id, user_id) VALUES (2, 1);\n";
 
+        writer.write(query_user);
+        writer.write(bookid_userid);
     }
 
 }
