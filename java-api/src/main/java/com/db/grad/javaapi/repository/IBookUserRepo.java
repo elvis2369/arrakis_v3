@@ -1,6 +1,7 @@
 package com.db.grad.javaapi.repository;
 
 import com.db.grad.javaapi.model.BookUser;
+import com.db.grad.javaapi.model.Security;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -12,5 +13,6 @@ public interface IBookUserRepo extends JpaRepository<BookUser, Long> {
 
     @Query(nativeQuery = true, value = "select * from book_user where user_id=:id")
     List<BookUser> findBooksByUserId(long id);
+
 
 }

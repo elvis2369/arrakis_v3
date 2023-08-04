@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class SecurityService {
@@ -17,4 +18,10 @@ public class SecurityService {
         ArrayList<Security> allBonds = (ArrayList<Security>) securityRepo.findAll();
         return allBonds;
     }
+
+    public List<Security> getMyBonds(long id){
+
+        return this.securityRepo.getMyBonds(id);
+    }
+
 }
