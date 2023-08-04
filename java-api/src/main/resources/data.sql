@@ -59,4 +59,8 @@ INSERT INTO trade (book_id, security_id, counterparty_id, currency, status, quan
 INSERT INTO trade (book_id, security_id, counterparty_id, currency, status, quantity, unit_price, buy_sell, trade_date, settlement_date) VALUES ('4', '20', '3', 'USD', 'active', '300', '98.76', 'buy', '2013-02-04', '2021-09-27');
 INSERT INTO trade (book_id, security_id, counterparty_id, currency, status, quantity, unit_price, buy_sell, trade_date, settlement_date) VALUES ('4', '20', '3', 'USD', 'active', '300', '98.76', 'sell', '2015-08-23', '2021-08-23');
 INSERT INTO users (id, email, password, role, username) VALUES (1, 'aa', '$2a$12$ueybLK1Wxn1uu2W8PYhHBe/Hj7qEX.3IwnwYRXWSYZGHkiGVdYQnm', 'admin', 'admin');
+INSERT INTO users (id, email, password, role, username) VALUES (2, 'aa', '$2a$12$ueybLK1Wxn1uu2W8PYhHBe/Hj7qEX.3IwnwYRXWSYZGHkiGVdYQnm', 'test', 'test');
+INSERT INTO users (id, email, password, role, username) VALUES (3, 'aa', '$2a$12$ueybLK1Wxn1uu2W8PYhHBe/Hj7qEX.3IwnwYRXWSYZGHkiGVdYQnm', 'test', 'test2');
 INSERT INTO book_user (book_id, user_id) VALUES (2, 1);
+INSERT INTO book_user (book_id, user_id) VALUES (3, 1);
+INSERT INTO book_user (book_id, user_id) VALUES (4, 2);

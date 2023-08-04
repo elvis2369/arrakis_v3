@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -14,6 +12,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "book_user")
 public class BookUser {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
+    private int id;
 
     @Column(name = "book_id")
     private int book_id;
