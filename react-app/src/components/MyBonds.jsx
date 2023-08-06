@@ -2,12 +2,13 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-function Home(){
+function MyBonds(){
 
     const [security, setSecuirty] = useState([])
     function getSecurity(){
-        axios.get("http://localhost:8080/allSecurities").then((response)=>{
+        axios.get("http://localhost:8080/myBonds").then((response)=>{
         setSecuirty(response.data);
+        console.log(response);
         })
         .catch((err)=>console.log(err))
     }
@@ -46,7 +47,7 @@ function Home(){
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link " href="/allbonds">
+                  <a className="nav-link " href="/allBonds">
                     All Bonds
                   </a>
                 </li>
@@ -60,11 +61,37 @@ function Home(){
           </div>
         </nav>
 
-      <div style={{backgroundColor : 'white', border: "5px", margin: "auto", width: "50%"}}><h1>Welcome to Bond world</h1></div>
-      
 
+
+        <div class='table-responsive'>
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th>ISIN</th>
+                        <th>Issuer Name</th>
+                        <th>Coupon</th>
+                        <th>Matur Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        security.map((res => {
+                            return (
+                                <tr>
+                                    <td>{res.isin}</td>
+                                    <td>{res.issuer_name}</td>
+                                    <td>{res.coupon}</td>
+                                    <td>{res.maturity_date}</td>
+                                </tr>
+                            )
+                        }))
+                    }
+                </tbody>
+            </table>
+        </div>
+        
     </div>
     );
 }
 
-export default Home;
+export default MyBonds;
