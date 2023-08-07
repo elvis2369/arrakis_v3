@@ -75,7 +75,7 @@ function SpecificBonds() {
           <thead>
           <th>Issuer Name</th>
             <tr style={{
-                            backgroundColor: '#8D6E63'}}>
+                            backgroundColor: '#969996'}}>
               <th>ISIN</th>
               <th>Issuer Name</th>
               <th>Coupon</th>

@@ -66,7 +66,7 @@ function Home(){
                 <thead style={{
                                   width: 100+'%'}}>
                     <tr style={{
-                            backgroundColor: '#8D6E63'}}>
+                            backgroundColor: '#969996'}}>
                         <th>ISIN</th>
                         <th>Issuer Name</th>
                         <th>Coupon</th>
@@ -78,19 +78,19 @@ function Home(){
                         security.map((res => {
                             return (
                                 <tr style={{
-                                  backgroundColor: '#A1887F'}}>
+                                  backgroundColor: '#969996'}}>
                                     <td>{res.id}</td>
                                     <td>{res.issuer_name}</td>
                                     <td>{res.coupon}</td>
                                     <td>{res.maturity_date}</td>
                                 <td style={{
-                            backgroundColor: '#A1887F'}}>
+                            backgroundColor: '#969996'}}>
                                 <button type="button" class="btn" onClick={() =>{
                                     goToBond(res.id)
                                     console.log(res.id)
                                 }
                                     }>
-                                  <i class="fa fa-trash"></i>
+                                  <i class="fa fa-info"></i>
                                 </button>
                               </td>
                               </tr>

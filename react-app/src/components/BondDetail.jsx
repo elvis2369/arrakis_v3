@@ -35,8 +35,8 @@ function BondDetail(){
                             backgroundColor: '#A1887F'}}>
                             <td>{values.id}</td>
                             <td>{values.isin}</td>
-                            <td>{values.status}</td>
                             <td>{values.coupon}</td>
+                            <td>{values.maturity_date}</td>
                         </tr>
                     }
                 </tbody>

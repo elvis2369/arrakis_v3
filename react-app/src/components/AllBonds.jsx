@@ -65,7 +65,7 @@ function Home(){
         <div class='table-responsive'>
             <table class='table'>
                 <thead>
-                    <tr style={{backgroundColor: '#8D6E63'}}>
+                    <tr style={{backgroundColor: '#969996'}}>
                         <th>ISIN</th>
                         <th>Issuer Name</th>
                         <th>Coupon</th>
@@ -77,7 +77,7 @@ function Home(){
                         security.map((res => {
                             return (
                                 <tr style={{
-                                  backgroundColor: '#A1887F'}}>
+                                  backgroundColor: '#969996'}}>
                                     <td>{res.isin}</td>
                                     <td>{res.issuer_name}</td>
                                     <td>{res.coupon}</td>

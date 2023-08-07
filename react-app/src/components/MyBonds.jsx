@@ -76,7 +76,7 @@ function MyBonds(){
             <table class='table' >
                 <thead>
                     <tr style={{
-        backgroundColor: '#8D6E63'}}>
+        backgroundColor: '#969996'}}>
                         <th>ISIN</th>
                         <th>Issuer Name</th>
                         <th>Coupon</th>
@@ -88,7 +88,7 @@ function MyBonds(){
                       security.map((sec) =>{
                         return(
                           <tr style={{
-                            backgroundColor: '#A1887F'}} >
+                            backgroundColor: '#969996'}} >
                           <td>{sec.isin}</td>
                           <td>{sec.issuer_name}</td>
                           <td>{sec.coupon}</td>
