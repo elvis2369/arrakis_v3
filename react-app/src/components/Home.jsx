@@ -3,9 +3,11 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../App.css";
+
 function Home() {
 
-
+  const userName = localStorage.getItem("username");
 
 
 
@@ -60,7 +62,12 @@ function Home() {
         </div>
       </nav>
 
+      <marquee scrollAmount='20' style={{
+                            backgroundColor: '#FFCCBC'}}>Welcome {userName} to our page!</marquee>
 
+      <div className="centered-div"><h1>Welcome {userName}!</h1></div>
+    
+    
     </div>
   );
 }

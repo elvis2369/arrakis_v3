@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+
+
+.centered-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  /* border: 1px solid #000;
+  background-color: #f0f0f0; */
+}
+
+
+
+
+
+

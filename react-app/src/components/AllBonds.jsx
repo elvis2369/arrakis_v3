@@ -91,6 +91,7 @@ function AllBonds() {
               <th>Issuer Name</th>
               <th>Coupon</th>
               <th>Mature Date</th>
+              <th>Details</th>
             </tr>
           </thead>
           <tbody>
@@ -104,9 +105,7 @@ function AllBonds() {
                     <td>{res.issuer_name}</td>
                     <td>{res.coupon}</td>
                     <td>{res.maturity_date}</td>
-                    <td style={{
-                      backgroundColor: '#969996'
-                    }}>
+                    <td>
                       <button type="button" class="btn" onClick={() => {
                         goToBond(res.id)
                         console.log(res.id)

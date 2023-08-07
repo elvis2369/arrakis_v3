@@ -2,10 +2,13 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 function MyBonds(){
 
     const [security, setSecuirty] = useState([])
     const userName = localStorage.getItem("username");
+    const nav = useNavigate();
     
     function getSecurity(){
       console.log(userName)
@@ -23,6 +26,15 @@ function MyBonds(){
     useEffect(()=>{
         getSecurity();
     },[])
+
+    function goToBond(bondID) {
+      axios.get("http://localhost:8080/bondSecurity/" + bondID).then((response) => {
+        console.log(response.data)
+        nav('/bonddetail/' + bondID)
+        console.log(bondID)
+      })
+        .catch((err) => console.warn(err))
+    }
 
     return(
         <div>
@@ -74,8 +86,8 @@ function MyBonds(){
           </div>
         </nav>
 
-        <marquee scrollAmount='20' style={{
-                            backgroundColor: '#FFCCBC'}}>Welcome to MyBonds section!</marquee>
+        {/* <marquee scrollAmount='20' style={{
+                            backgroundColor: '#FFCCBC'}}>Welcome to MyBonds section!</marquee> */}
 
         <div class='table-responsive' >
             <table class='table' >
@@ -86,6 +98,7 @@ function MyBonds(){
                         <th>Issuer Name</th>
                         <th>Coupon</th>
                         <th>Mature Date</th>
+                        <th>Details</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -98,6 +111,17 @@ function MyBonds(){
                           <td>{sec.issuer_name}</td>
                           <td>{sec.coupon}</td>
                           <td>{sec.maturity_date}</td>
+                          <td>
+
+                      <button type="button" class="btn" onClick={() => {
+                        goToBond(sec.id)
+                        console.log(sec.id)
+                      }
+                      }>
+                        <i class="fa fa-info"></i>
+                      </button>
+                    </td>
+
                         </tr>
                       )})
                         
