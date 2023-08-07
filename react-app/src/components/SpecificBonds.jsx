@@ -12,7 +12,7 @@ function SpecificBonds() {
   const [dateTaken, setDateTaken] = useState([]);
   const dateRef = useRef(null);
   const nav = useNavigate();
-  
+
   useEffect(() => {
     getSpecificBonds();
   }, []);
@@ -100,9 +100,14 @@ function SpecificBonds() {
           </div>
         </div>
       </nav>
+
+      <br/>
+      
       <div className="mainLogin">
         <div>
-          <input type="date" onChange={setDate} ref={dateRef}></input>
+          <pre>
+          <dd>  <input type="date" onChange={setDate} ref={dateRef}></input></dd>
+          </pre>
         </div>
       </div>
       <div class="table-responsive mt-4">

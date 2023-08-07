@@ -99,6 +99,7 @@ function MyBonds(){
                 <thead>
                     <tr style={{
         backgroundColor: '#969996'}}>
+                        <th>ID</th>
                         <th>ISIN</th>
                         <th>Issuer Name</th>
                         <th>Coupon</th>
@@ -112,6 +113,7 @@ function MyBonds(){
                         return(
                           <tr style={{
                             backgroundColor: '#969996'}} >
+                          <td>{sec.id}</td>
                           <td>{sec.isin}</td>
                           <td>{sec.issuer_name}</td>
                           <td>{sec.coupon}</td>

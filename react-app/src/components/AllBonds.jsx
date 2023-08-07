@@ -92,6 +92,7 @@ function AllBonds() {
             <tr style={{
               backgroundColor: '#969996'
             }}>
+              <th>ID</th>
               <th>ISIN</th>
               <th>Issuer Name</th>
               <th>Coupon</th>
@@ -107,6 +108,7 @@ function AllBonds() {
                     backgroundColor: '#969996'
                   }}>
                     <td>{res.id}</td>
+                    <td>{res.isin}</td>
                     <td>{res.issuer_name}</td>
                     <td>{res.coupon}</td>
                     <td>{res.maturity_date}</td>
