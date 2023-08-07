@@ -14,7 +14,7 @@ function App() {
           <Route index element={<Login />} />
           <Route path="/login" element={<Login />}/>
           <Route path="/home" element={<Home/>}/>
-          <Route path="/bonddetail" element={<BondDetail/>}/>
+          <Route path="/bonddetail/:id" element={<BondDetail/>}/>
           <Route path="/allbonds" element={<AllBonds/>}/>
           <Route path="/mybonds" element={<MyBonds/>}/>
         </Route>
