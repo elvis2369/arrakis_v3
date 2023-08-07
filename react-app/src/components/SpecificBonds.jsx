@@ -43,11 +43,13 @@ function SpecificBonds() {
       <div class="table-responsive">
         <table class="table">
           <thead>
-            <tr>
+          <th>Issuer Name</th>
+            <tr style={{
+                            backgroundColor: '#8D6E63'}}>
               <th>ISIN</th>
               <th>Issuer Name</th>
               <th>Coupon</th>
-              <th>Matur Date</th>
+              <th>Mature Date</th>
             </tr>
           </thead>
           <tbody>
@@ -58,7 +60,7 @@ function SpecificBonds() {
                     }
                 }).map((bond) =>{
                     return(
-                        <tr>
+                        <tr >
                             <td>{bond.maturity_date}</td>
                         </tr>
                     )

@@ -65,18 +65,19 @@ function Home(){
         <div class='table-responsive'>
             <table class='table'>
                 <thead>
-                    <tr>
+                    <tr style={{backgroundColor: '#8D6E63'}}>
                         <th>ISIN</th>
                         <th>Issuer Name</th>
                         <th>Coupon</th>
-                        <th>Matur Date</th>
+                        <th>Mature Date</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         security.map((res => {
                             return (
-                                <tr>
+                                <tr style={{
+                                  backgroundColor: '#A1887F'}}>
                                     <td>{res.isin}</td>
                                     <td>{res.issuer_name}</td>
                                     <td>{res.coupon}</td>

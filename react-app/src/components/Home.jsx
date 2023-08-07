@@ -63,24 +63,28 @@ function Home(){
         </nav>
         <div class='table-responsive'>
             <table class='table'>
-                <thead>
-                    <tr>
+                <thead style={{
+                                  width: 100+'%'}}>
+                    <tr style={{
+                            backgroundColor: '#8D6E63'}}>
                         <th>ISIN</th>
                         <th>Issuer Name</th>
                         <th>Coupon</th>
-                        <th>Matur Date</th>
+                        <th>Mature Date</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         security.map((res => {
                             return (
-                                <tr>
+                                <tr style={{
+                                  backgroundColor: '#A1887F'}}>
                                     <td>{res.id}</td>
                                     <td>{res.issuer_name}</td>
                                     <td>{res.coupon}</td>
                                     <td>{res.maturity_date}</td>
-                                <td>
+                                <td style={{
+                            backgroundColor: '#A1887F'}}>
                                 <button type="button" class="btn" onClick={() =>{
                                     goToBond(res.id)
                                     console.log(res.id)
