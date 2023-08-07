@@ -2,21 +2,12 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-function MyBonds(){
+function Home(){
 
     const [security, setSecuirty] = useState([])
-    const userName = localStorage.getItem("username");
-    
     function getSecurity(){
-      console.log(userName)
-        axios.get("http://localhost:8080/myBonds", {
-          params:{
-            username:userName
-          }
-        }).then((response)=>{
+        axios.get("http://localhost:8080/allSecurities").then((response)=>{
         setSecuirty(response.data);
-        console.log(response.data);
-
         })
         .catch((err)=>console.log(err))
     }
@@ -26,7 +17,7 @@ function MyBonds(){
 
     return(
         <div>
-         <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
           <div className="container-fluid">
             <button
               className="navbar-toggler"
@@ -55,7 +46,7 @@ function MyBonds(){
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link " href="/allBonds">
+                  <a className="nav-link " href="/home">
                     All Bonds
                   </a>
                 </li>
@@ -64,24 +55,17 @@ function MyBonds(){
                     My Bonds
                   </a>
                 </li>
-                <li className="nav-item">
-                  <a className="nav-link " href="/specificbonds">
-                    Specific Bond
-                  </a>
-                </li>
               </ul>
             </div>
           </div>
         </nav>
 
-        <marquee scrollAmount='20' style={{
-                            backgroundColor: '#FFCCBC'}}>Welcome to MyBonds section!</marquee>
 
-        <div class='table-responsive' >
-            <table class='table' >
+
+        <div class='table-responsive'>
+            <table class='table'>
                 <thead>
-                    <tr style={{
-        backgroundColor: '#969996'}}>
+                    <tr style={{backgroundColor: '#969996'}}>
                         <th>ISIN</th>
                         <th>Issuer Name</th>
                         <th>Coupon</th>
@@ -90,20 +74,18 @@ function MyBonds(){
                 </thead>
                 <tbody>
                     {
-                      security.map((sec) =>{
-                        return(
-                          <tr style={{
-                            backgroundColor: '#969996'}} >
-                          <td>{sec.isin}</td>
-                          <td>{sec.issuer_name}</td>
-                          <td>{sec.coupon}</td>
-                          <td>{sec.maturity_date}</td>
-                        </tr>
-                      )})
-                        
-                        
+                        security.map((res => {
+                            return (
+                                <tr style={{
+                                  backgroundColor: '#969996'}}>
+                                    <td>{res.isin}</td>
+                                    <td>{res.issuer_name}</td>
+                                    <td>{res.coupon}</td>
+                                    <td>{res.maturity_date}</td>
+                                </tr>
+                            )
+                        }))
                     }
-                  
                 </tbody>
             </table>
         </div>
@@ -112,4 +94,4 @@ function MyBonds(){
     );
 }
 
-export default MyBonds;
+export default Home;
