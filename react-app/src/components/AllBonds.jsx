@@ -46,7 +46,7 @@ function Home(){
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link " href="/allbonds">
+                  <a className="nav-link " href="/home">
                     All Bonds
                   </a>
                 </li>
@@ -60,9 +60,35 @@ function Home(){
           </div>
         </nav>
 
-      <div style={{backgroundColor : 'white', border: "5px", margin: "auto", width: "50%"}}><h1>Welcome to Bond world</h1></div>
-      
 
+
+        <div class='table-responsive'>
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <th>ISIN</th>
+                        <th>Issuer Name</th>
+                        <th>Coupon</th>
+                        <th>Matur Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        security.map((res => {
+                            return (
+                                <tr>
+                                    <td>{res.isin}</td>
+                                    <td>{res.issuer_name}</td>
+                                    <td>{res.coupon}</td>
+                                    <td>{res.maturity_date}</td>
+                                </tr>
+                            )
+                        }))
+                    }
+                </tbody>
+            </table>
+        </div>
+        
     </div>
     );
 }

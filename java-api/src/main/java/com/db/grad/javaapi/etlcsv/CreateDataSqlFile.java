@@ -221,11 +221,20 @@ public class CreateDataSqlFile {
     public static void createQueriesForUsers(Writer writer) throws IOException {
 
         String query_user = "INSERT INTO users (id, email, password, role, username) VALUES (1, 'aa', '$2a$12$ueybLK1Wxn1uu2W8PYhHBe/Hj7qEX.3IwnwYRXWSYZGHkiGVdYQnm', 'admin', 'admin');\n";
+        String query_user2 = "INSERT INTO users (id, email, password, role, username) VALUES (2, 'aa', '$2a$12$ueybLK1Wxn1uu2W8PYhHBe/Hj7qEX.3IwnwYRXWSYZGHkiGVdYQnm', 'test', 'test');\n";
+        String query_user3 = "INSERT INTO users (id, email, password, role, username) VALUES (3, 'aa', '$2a$12$ueybLK1Wxn1uu2W8PYhHBe/Hj7qEX.3IwnwYRXWSYZGHkiGVdYQnm', 'test', 'test2');\n";
 
         String bookid_userid = "INSERT INTO book_user (book_id, user_id) VALUES (2, 1);\n";
+        String bookid_userid2 = "INSERT INTO book_user (book_id, user_id) VALUES (3, 1);\n";
+        String bookid_userid3 = "INSERT INTO book_user (book_id, user_id) VALUES (4, 2);\n";
 
         writer.write(query_user);
+        writer.write(query_user2);
+        writer.write(query_user3);
         writer.write(bookid_userid);
+        writer.write(bookid_userid2);
+        writer.write(bookid_userid3);
+
     }
 
 }

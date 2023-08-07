@@ -28,4 +28,10 @@ public class UserService implements UserDetailsService {
     public void saveUser(RegisterDTO registerDTO) {
         this.userRepository.save(new User(registerDTO));
     }
+
+    public User searchByUsername(String username){
+
+        return this.userRepository.findByUsername(username);
+
+    }
 }
