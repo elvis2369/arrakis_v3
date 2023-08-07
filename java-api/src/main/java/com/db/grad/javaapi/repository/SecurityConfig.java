@@ -65,6 +65,7 @@ public class SecurityConfig {
                 .antMatchers("/api/register").permitAll()
                 .antMatchers("/allSecurities").permitAll()
                 .antMatchers("/bondSecurity/**").permitAll()
+                .antMatchers("/myBonds").permitAll()
                 .and().authorizeHttpRequests()
                 .anyRequest().authenticated()
                 .and()

@@ -43,11 +43,12 @@ CREATE TABLE book (
 
 -- Create 'book_user' table
 CREATE TABLE book_user (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     book_id INT NOT NULL,
     user_id INT NOT NULL,
     FOREIGN KEY (book_id) REFERENCES book(id),
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    PRIMARY KEY (book_id, user_id)
+    FOREIGN KEY (user_id) REFERENCES users(id)
+--    PRIMARY KEY (book_id, user_id)
 );
 
 -- Create 'trade' table
