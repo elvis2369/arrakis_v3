@@ -36,30 +36,54 @@ public class CreateDataSqlFile {
     private static void createQueriesForSecurities(BufferedWriter writer, List<Security> securitiesList) throws IOException {
 
         for (Security s : securitiesList) {
-            String query_security = "INSERT INTO security (isin, cusip, issuer_name, maturity_date, coupon, type, face_value, currency, status) " +
-                    "VALUES (" +
-                    "'" + s.getIsin() + "'"
-                    + ", " +
-                    "'" + s.getCusip() + "'"
-                    + ", " +
-                    "'" + s.getIssuer_name() + "'"
-                    + ", " +
-                    "'" + convertDate(s.getBond_maturity_date()) + "'"
-                    + ", " +
-                    "'" + s.getCoupon_percent() + "'"
-                    + ", " +
-                    "'" + s.getType() + "'"
-                    + ", " +
-                    "'" + s.getFace_value() + "'"
-                    + ", " +
-                    "'" + s.getBond_currency() + "'"
-                    + ", " +
-                    "'" + s.getStatus() + "'"
-                    + ");\n";
-            writer.write(query_security);
+            if (s.getCusip().length() > 2) {
+                String query_security = "INSERT INTO security (isin, cusip, issuer_name, maturity_date, coupon, type, face_value, currency, status, bond_holder) " +
+                        "VALUES (" +
+                        "'" + s.getIsin() + "'"
+                        + ", " +
+                        "'" + s.getCusip() + "'"
+                        + ", " +
+                        "'" + s.getIssuer_name() + "'"
+                        + ", " +
+                        "'" + convertDate(s.getBond_maturity_date()) + "'"
+                        + ", " +
+                        "'" + s.getCoupon_percent() + "'"
+                        + ", " +
+                        "'" + s.getType() + "'"
+                        + ", " +
+                        "'" + s.getFace_value() + "'"
+                        + ", " +
+                        "'" + s.getBond_currency() + "'"
+                        + ", " +
+                        "'" + s.getStatus() + "'"
+                        + ", " +
+                        "'" + s.getBond_holder() + "'"
+                        + ");\n";
+                writer.write(query_security);
+            } else {
+                String query_security = "INSERT INTO security (isin, issuer_name, maturity_date, coupon, type, face_value, currency, status, bond_holder) " +
+                        "VALUES (" +
+                        "'" + s.getIsin() + "'"
+                        + ", " +
+                        "'" + s.getIssuer_name() + "'"
+                        + ", " +
+                        "'" + convertDate(s.getBond_maturity_date()) + "'"
+                        + ", " +
+                        "'" + s.getCoupon_percent() + "'"
+                        + ", " +
+                        "'" + s.getType() + "'"
+                        + ", " +
+                        "'" + s.getFace_value() + "'"
+                        + ", " +
+                        "'" + s.getBond_currency() + "'"
+                        + ", " +
+                        "'" + s.getStatus() + "'"
+                        + ", " +
+                        "'" + s.getBond_holder() + "'"
+                        + ");\n";
+                writer.write(query_security);
+            }
         }
-
-
     }
 
     private static void createQueriesForTrades(BufferedWriter writer, List<Trade> trades, String[] booksArray, String[] counterpartiesArray, List<Security> securitiesList) throws IOException {

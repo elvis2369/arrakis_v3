@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ISecurityRepo extends JpaRepository<Security,Long> {
 
-    @Query(nativeQuery = true, value = "SELECT DISTINCT(security.id), security.isin, security.cusip, security.issuer_name, security.maturity_date, security.coupon, security.type, security.face_value, security.currency, security.status\n" +
+    @Query(nativeQuery = true, value = "SELECT DISTINCT(security.id), security.isin, security.cusip, security.issuer_name, security.maturity_date, security.coupon, security.type, security.face_value, security.currency, security.status, security.bond_holder\n" +
             "FROM trade\n" +
             "INNER JOIN security\n" +
             "ON trade.security_id = security.id\n" +

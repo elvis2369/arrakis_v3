@@ -14,9 +14,10 @@ public class Security {
     private String face_value;
     private String bond_currency;
     private String status;
+    private String bond_holder;
 
 
-    public Security(int id, String isin, String cusip, String issuer_name, String bond_maturity_date, String coupon_percent, String type, String face_value, String bond_currency, String status) {
+    public Security(int id, String isin, String cusip, String issuer_name, String bond_maturity_date, String coupon_percent, String type, String face_value, String bond_currency, String status, String bond_holder) {
         this.id = id;
         this.isin = isin;
         this.cusip = cusip;
@@ -27,6 +28,7 @@ public class Security {
         this.face_value = face_value;
         this.bond_currency = bond_currency;
         this.status = status;
+        this.bond_holder = bond_holder;
     }
 
     public int getId() {
@@ -39,6 +41,14 @@ public class Security {
 
     public String getIsin() {
         return isin;
+    }
+
+    public String getBond_holder() {
+        return bond_holder;
+    }
+
+    public void setBond_holder(String bond_holder) {
+        this.bond_holder = bond_holder;
     }
 
     public void setIsin(String isin) {
@@ -105,6 +115,7 @@ public class Security {
         return status;
     }
 
+
     public void setStatus(String status) {
         this.status = status;
     }
@@ -122,6 +133,7 @@ public class Security {
                 ", face_value='" + face_value + '\'' +
                 ", bond_currency='" + bond_currency + '\'' +
                 ", status='" + status + '\'' +
+                ", bonder_holder='" + bond_holder + '\'' +
                 '}';
     }
 

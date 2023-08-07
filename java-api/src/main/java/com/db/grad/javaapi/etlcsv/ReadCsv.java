@@ -83,7 +83,7 @@ public class ReadCsv {
         for(int i=1;i<trades.size();i++) {
             Security security = new Security(1, trades.get(i).getIsin(), trades.get(i).getCusip(), trades.get(i).getIssuer_name(),
                     trades.get(i).getBond_maturity_date(), trades.get(i).getCoupon_percent(), trades.get(i).getType(), trades.get(i).getFace_value(),
-                    trades.get(i).getTrade_currency(), trades.get(i).getStatus());
+                    trades.get(i).getTrade_currency(), trades.get(i).getStatus(), trades.get(i).getBond_holder());
 
             securities.add(security);
         }

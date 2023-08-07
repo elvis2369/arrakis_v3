@@ -19,14 +19,15 @@ CREATE TABLE users (
 CREATE TABLE security (
     id INT AUTO_INCREMENT PRIMARY KEY,
     isin VARCHAR(20) DEFAULT NULL,
-    cusip VARCHAR(50) DEFAULT NULL,
+    cusip VARCHAR(50) DEFAULT 'UNKNOWN',
     issuer_name VARCHAR(250) NOT NULL,
     maturity_date DATE NOT NULL,
     coupon FLOAT NOT NULL,
     type VARCHAR(250) NOT NULL,
     face_value FLOAT NOT NULL,
     currency VARCHAR(32) NOT NULL DEFAULT '',
-    status VARCHAR(32) DEFAULT NULL
+    status VARCHAR(32) DEFAULT NULL,
+    bond_holder VARCHAR(32) DEFAULT NULL
 );
 
 -- Create 'counterparty' table

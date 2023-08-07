@@ -35,4 +35,6 @@ public class Security {
     private String currency;
     @Column(name = "status")
     private String status;
+    @Column(name = "bond_holder")
+    private String bond_holder;
 }

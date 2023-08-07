@@ -32,7 +32,6 @@ public class Trade {
     private int quantity ;
     @Column(name = "unit_price")
     private float unit_price;
-
     @Column(name = "buy_sell")
     private String buy_sell;
     @Column(name = "trade_date")
