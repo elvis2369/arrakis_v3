@@ -5,10 +5,18 @@ import { useState } from "react";
 function MyBonds(){
 
     const [security, setSecuirty] = useState([])
+    const userName = localStorage.getItem("username");
+    
     function getSecurity(){
-        axios.get("http://localhost:8080/myBonds").then((response)=>{
+      console.log(userName)
+        axios.get("http://localhost:8080/myBonds", {
+          params:{
+            username:userName
+          }
+        }).then((response)=>{
         setSecuirty(response.data);
-        console.log(response);
+        console.log(response.data);
+
         })
         .catch((err)=>console.log(err))
     }
@@ -75,17 +83,19 @@ function MyBonds(){
                 </thead>
                 <tbody>
                     {
-                        security.map((res => {
-                            return (
-                                <tr>
-                                    <td>{res.isin}</td>
-                                    <td>{res.issuer_name}</td>
-                                    <td>{res.coupon}</td>
-                                    <td>{res.maturity_date}</td>
-                                </tr>
-                            )
-                        }))
+                      security.map((sec) =>{
+                        return(
+                          <tr>
+                          <td>{sec.isin}</td>
+                          <td>{sec.issuer_name}</td>
+                          <td>{sec.coupon}</td>
+                          <td>{sec.maturity_date}</td>
+                        </tr>
+                      )})
+                        
+                        
                     }
+                  
                 </tbody>
             </table>
         </div>
