@@ -8,6 +8,7 @@ import com.db.grad.javaapi.service.SecurityService;
 import com.db.grad.javaapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
@@ -27,16 +28,16 @@ public class BookUserController {
     SecurityService securityService;
 
     @GetMapping("/myBooks")
-    public List<BookUser> getMyBooks(Principal principal) {
-        User user = (User) this.userService.searchByUsername(principal.getName());
+    public List<BookUser> getMyBooks(@RequestParam(name = "username") String username) {
+        User user = (User) this.userService.searchByUsername(username);
         List<BookUser> bookUserData = this.bookUserService.findBooksByUserId(user.getId());
 
         return bookUserData;
     }
 
     @GetMapping("/myBonds")
-    public ArrayList<Security> getAllBondsFromMyBooks(Principal principal) {
-        User user = (User) this.userService.searchByUsername(principal.getName());
+    public ArrayList<Security> getAllBondsFromMyBooks(@RequestParam(name = "username") String username) {
+        User user = (User) this.userService.searchByUsername(username);
 
         ArrayList<Security> bondData = this.securityService.getMyBonds(user.getId());
 
