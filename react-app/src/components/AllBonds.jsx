@@ -3,6 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../App.css"
 
 function AllBonds() {
 
@@ -94,9 +95,10 @@ function AllBonds() {
             }}>
               <th>ID</th>
               <th>ISIN</th>
+              <th>CUSIP</th>
               <th>Issuer Name</th>
               <th>Coupon</th>
-              <th>Mature Date</th>
+              <th>Maturity Date</th>
               <th>Details</th>
             </tr>
           </thead>
@@ -104,11 +106,10 @@ function AllBonds() {
             {
               security.map((res => {
                 return (
-                  <tr style={{
-                    backgroundColor: '#969996'
-                  }}>
+                  <tr class="table-row-styling">
                     <td>{res.id}</td>
                     <td>{res.isin}</td>
+                    <td>{res.cusip}</td>
                     <td>{res.issuer_name}</td>
                     <td>{res.coupon}</td>
                     <td>{res.maturity_date}</td>

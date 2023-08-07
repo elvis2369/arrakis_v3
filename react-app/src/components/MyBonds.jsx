@@ -3,6 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../App.css"
 
 function MyBonds(){
 
@@ -101,9 +102,11 @@ function MyBonds(){
         backgroundColor: '#969996'}}>
                         <th>ID</th>
                         <th>ISIN</th>
+                        <th>CUSIP</th>
                         <th>Issuer Name</th>
                         <th>Coupon</th>
-                        <th>Mature Date</th>
+                        <th>Maturity Date</th>
+                        <th>Bond Holder</th>
                         <th>Details</th>
                     </tr>
                 </thead>
@@ -111,13 +114,14 @@ function MyBonds(){
                     {
                       security.map((sec) =>{
                         return(
-                          <tr style={{
-                            backgroundColor: '#969996'}} >
+                          <tr class="table-row-styling">
                           <td>{sec.id}</td>
+                          <td>{sec.isin}</td>
                           <td>{sec.isin}</td>
                           <td>{sec.issuer_name}</td>
                           <td>{sec.coupon}</td>
                           <td>{sec.maturity_date}</td>
+                          <td>{sec.bond_holder}</td>
                           <td>
 
                       <button type="button" class="btn" onClick={() => {

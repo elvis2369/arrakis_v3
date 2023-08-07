@@ -70,7 +70,7 @@ function Login() {
                   ></input>
               </div>
               <div class="text-center">
-                <button type='submit' class="btn btn-dark mb-3 " onClick={submitLogin}>Submit Login</button>
+                <button type='submit' class="btn btn-dark mb-3 " onClick={submitLogin}>Login</button>
               </div>
             </form>
           </div>

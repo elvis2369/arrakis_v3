@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import "../App.css"
 
 function BondDetail() {
 
@@ -76,32 +77,60 @@ function BondDetail() {
                     </div>
                 </div>
             </nav>
-            <div class='table-responsive'>
+
+            {/* <div class='table-responsive'>
                 <table class='table'>
                     <thead>
-                        <tr style={{
-                            backgroundColor: '#8D6E63'
-                        }}>
+            <tr style={{
+              backgroundColor: '#969996'
+            }}>
+                            <th>ID</th>
                             <th>ISIN</th>
+                            <th>CUSIP</th>
                             <th>Issuer Name</th>
                             <th>Coupon</th>
-                            <th>Mature Date</th>
+                            <th>Maturity Date</th>
+                            <th>Type</th>
+                            <th>Face Value</th>
+                            <th>Currency</th>
+                            <th>Status</th>
+                            <th>Bond Holder</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            <tr style={{
-                                backgroundColor: '#A1887F'
-                            }}>
+                            <tr class="table-row-styling">
                                 <td>{values.id}</td>
                                 <td>{values.isin}</td>
+                                <td>{values.cusip}</td>
+                                <td>{values.issuer_name}</td>
                                 <td>{values.coupon}</td>
                                 <td>{values.maturity_date}</td>
+                                <td>{values.type}</td>
+                                <td>{values.face_value}</td>
+                                <td>{values.currency}</td>
+                                <td>{values.status}</td>
+                                <td>{values.bond_holder}</td>
                             </tr>
                         }
                     </tbody>
                 </table>
-            </div>
+            </div> */}
+
+<div className="centered-div-bond"> 
+<h3>Details of Bond  {values.id}</h3>
+<p>ISIN: {values.isin}</p>
+<p>CUSIP: {values.cusip}</p>
+<p>Issuer Name: {values.issuer_name}</p>
+<p>Coupon: {values.coupon}</p>
+<p>Maturity Date: {values.maturity_date}</p>
+<p>Type: {values.type}</p>
+<p>Face Value: {values.face_value}</p>
+<p>Currency: {values.currency}</p>
+<p>Status: {values.status}</p>
+<p>Bond Holder: {values.bond_holder}</p>
+</div>
+
         </div>
     )
 }
