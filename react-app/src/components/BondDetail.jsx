@@ -3,9 +3,12 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+
 function BondDetail() {
+
     const { id } = useParams();
     const [values, setValue] = useState([]);
+
     function getDet() {
         console.log(id)
         axios.get("http://localhost:8080/bondSecurity/" + id).then((response) => {
@@ -14,9 +17,11 @@ function BondDetail() {
         })
             .catch((err) => console.warn(err))
     }
+
     useEffect(() => {
         getDet();
     }, [])
+
     return (
         <div>
             <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -60,6 +65,11 @@ function BondDetail() {
                             <li className="nav-item">
                                 <a className="nav-link " href="/specificbonds">
                                     Specific Bond
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link " href="/">
+                                    Logout
                                 </a>
                             </li>
                         </ul>

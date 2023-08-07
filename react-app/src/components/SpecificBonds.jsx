@@ -6,11 +6,13 @@ import { useRef } from "react";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 function SpecificBonds() {
   const [bonds, setBond] = useState([]);
   const [dateTaken, setDateTaken] = useState([]);
   const dateRef = useRef(null);
   const nav = useNavigate();
+  
   useEffect(() => {
     getSpecificBonds();
   }, []);
@@ -32,6 +34,7 @@ function SpecificBonds() {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
   }
+
   function goToBond(bondID) {
     axios
       .get("http://localhost:8080/bondSecurity/" + bondID)
@@ -42,6 +45,7 @@ function SpecificBonds() {
       })
       .catch((err) => console.warn(err));
   }
+
   return (
     <div>
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -85,6 +89,11 @@ function SpecificBonds() {
               <li className="nav-item">
                 <a className="nav-link " href="/specificbonds">
                   Specific Bond
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link " href="/">
+                  Logout
                 </a>
               </li>
             </ul>

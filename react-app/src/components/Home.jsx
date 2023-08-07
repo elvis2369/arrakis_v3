@@ -1,8 +1,4 @@
-import axios from "axios";
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../App.css";
 
 function Home() {
@@ -55,6 +51,11 @@ function Home() {
               <li className="nav-item">
                 <a className="nav-link " href="/specificbonds">
                   Specific Bond
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link " href="/">
+                  Logout
                 </a>
               </li>
             </ul>
