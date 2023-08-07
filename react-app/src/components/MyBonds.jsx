@@ -2,14 +2,21 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-function Home(){
+function MyBonds(){
 
     const [security, setSecuirty] = useState([])
-    const nav = useNavigate();
+    const userName = localStorage.getItem("username");
+    
     function getSecurity(){
-        axios.get("http://localhost:8080/allSecurities").then((response)=>{
+      console.log(userName)
+        axios.get("http://localhost:8080/myBonds", {
+          params:{
+            username:userName
+          }
+        }).then((response)=>{
         setSecuirty(response.data);
+        console.log(response.data);
+
         })
         .catch((err)=>console.log(err))
     }
@@ -17,20 +24,9 @@ function Home(){
         getSecurity();
     },[])
 
-    function goToBond(bondID){
-        axios.get("http://localhost:8080/bondSecurity/"+bondID).then((response)=>{
-            console.log(response.data)
-            nav('/bonddetail/'+bondID)
-            console.log(bondID)
-        })
-        .catch((err)=> console.warn(err))
-    }
-    function funcDate(d1, d2){
-
-    }
     return(
         <div>
-        <nav className="navbar navbar-expand-sm navbar-dark bg-dark my-3">
+        <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
           <div className="container-fluid">
             <button
               className="navbar-toggler"
@@ -43,12 +39,23 @@ function Home(){
             <div className="collapse navbar-collapse" id="mynavbar">
               <ul className="navbar-nav me-auto">
                 <li className="nav-item">
+                  <div className="btn-group">
+                    <ul className="dropdown-menu">
+                      <li>
+                        <a className="dropdown-item" href="/login">
+                          Login
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li className="nav-item">
                   <a className="nav-link " href="/home">
                     Home
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link " href="/allbonds">
+                  <a className="nav-link " href="/allBonds">
                     All Bonds
                   </a>
                 </li>
@@ -61,6 +68,9 @@ function Home(){
             </div>
           </div>
         </nav>
+
+
+
         <div class='table-responsive'>
             <table class='table'>
                 <thead>
@@ -73,32 +83,25 @@ function Home(){
                 </thead>
                 <tbody>
                     {
-                        security.map((res => {
-                            return (
-                                <tr>
-                                    <td>{res.id}</td>
-                                    <td>{res.issuer_name}</td>
-                                    <td>{res.coupon}</td>
-                                    <td>{res.maturity_date}</td>
-                                <td>
-                                <button type="button" class="btn" onClick={() =>{
-                                    goToBond(res.id)
-                                    console.log(res.id)
-                                }
-                                    }>
-                                  <i class="fa fa-trash"></i>
-                                </button>
-                              </td>
-                              </tr>
-                            )
-                        }))
-                    
+                      security.map((sec) =>{
+                        return(
+                          <tr>
+                          <td>{sec.isin}</td>
+                          <td>{sec.issuer_name}</td>
+                          <td>{sec.coupon}</td>
+                          <td>{sec.maturity_date}</td>
+                        </tr>
+                      )})
+                        
+                        
                     }
+                  
                 </tbody>
             </table>
         </div>
+        
     </div>
     );
 }
 
-export default Home;
+export default MyBonds;

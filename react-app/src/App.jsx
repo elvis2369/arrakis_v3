@@ -4,6 +4,9 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import BondDetail from "./components/BondDetail";
 import SpecificBonds from "./components/SpecificBonds";
+import AllBonds from "./components/AllBonds";
+import MyBonds from "./components/MyBonds";
+
 function App() {
   return(
    <BrowserRouter>
@@ -14,6 +17,8 @@ function App() {
           <Route path="/home" element={<Home/>}/>
           <Route path="/bonddetail/:id" element={<BondDetail/>}/>
           <Route path="/specificbonds" element={<SpecificBonds/>}/>
+          <Route path="/allbonds" element={<AllBonds/>}/>
+          <Route path="/mybonds" element={<MyBonds/>}/>
         </Route>
       </Routes>
    </BrowserRouter> 

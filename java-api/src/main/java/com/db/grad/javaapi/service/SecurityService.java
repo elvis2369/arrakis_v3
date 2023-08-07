@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class SecurityService {
@@ -19,7 +20,13 @@ public class SecurityService {
         return allBonds;
     }
 
+    public ArrayList<Security> getMyBonds(long id){
+
+        return this.securityRepo.getMyBonds(id);
+    }
+
     public Security getSecurityById(long id) {
         return this.securityRepo.getSecurityById(id);
     }
+
 }
