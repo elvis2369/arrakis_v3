@@ -69,23 +69,26 @@ function MyBonds(){
           </div>
         </nav>
 
+        <marquee scrollAmount='20' style={{
+                            backgroundColor: '#FFCCBC'}}>Welcome to MyBonds section!</marquee>
 
-
-        <div class='table-responsive'>
-            <table class='table'>
+        <div class='table-responsive' >
+            <table class='table' >
                 <thead>
-                    <tr>
+                    <tr style={{
+        backgroundColor: '#8D6E63'}}>
                         <th>ISIN</th>
                         <th>Issuer Name</th>
                         <th>Coupon</th>
-                        <th>Matur Date</th>
+                        <th>Mature Date</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                       security.map((sec) =>{
                         return(
-                          <tr>
+                          <tr style={{
+                            backgroundColor: '#A1887F'}} >
                           <td>{sec.isin}</td>
                           <td>{sec.issuer_name}</td>
                           <td>{sec.coupon}</td>

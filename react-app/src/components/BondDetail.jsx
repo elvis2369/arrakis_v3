@@ -21,16 +21,18 @@ function BondDetail(){
         <div class='table-responsive'>
             <table class='table'>
                 <thead>
-                    <tr>
+                    <tr style={{
+                            backgroundColor: '#8D6E63'}}>
                         <th>ISIN</th>
                         <th>Issuer Name</th>
                         <th>Coupon</th>
-                        <th>Matur Date</th>
+                        <th>Mature Date</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        <tr>
+                        <tr style={{
+                            backgroundColor: '#A1887F'}}>
                             <td>{values.id}</td>
                             <td>{values.isin}</td>
                             <td>{values.status}</td>

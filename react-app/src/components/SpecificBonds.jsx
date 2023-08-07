@@ -72,6 +72,16 @@ function SpecificBonds() {
       </div>
       <div class="table-responsive mt-4">
         <table class="table">
+          <thead>
+          <th>Issuer Name</th>
+            <tr style={{
+                            backgroundColor: '#8D6E63'}}>
+              <th>ISIN</th>
+              <th>Issuer Name</th>
+              <th>Coupon</th>
+              <th>Mature Date</th>
+            </tr>
+          </thead>
           <tbody>
             <tr>
               <td>
